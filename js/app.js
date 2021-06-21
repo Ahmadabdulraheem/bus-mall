@@ -108,7 +108,7 @@ function printResult(e) {
     
    
 
-   productView.removeEventListener('click', printResult)
+   productView.removeEventListener('click', printResult);
 }
 
 imageSection.addEventListener('click', eventHandler);
