@@ -1,7 +1,4 @@
-// Created by: Waleed A. Afifi
-// Email: waleed-afifi@windowslive.com
-// GitHub: https://github.com/waleedafifi90
-// LinkedIn: https://www.linkedin.com/in/walafifi/
+ 
 
 'use strict';
 
@@ -14,12 +11,22 @@ let imageSection = document.getElementById('imageSection');
 let leftImage = document.getElementById( 'leftImage' );
 let rightImage = document.getElementById( 'rightImage' );
 let midImage = document.getElementById( 'midImage' );
+
+let productView = document.getElementById( 'productView' );
+let itemList = document.getElementById( 'itemsList' );
+
+let rounds = 25;
 let counter = 0;
+
+let leftIndex  ;
+let midIndex  ;
+let rightIndex ;
 
 function Imagess( name, src ) {
   this.name = name;
   this.src = `./img/${src}`;
   this.views = 0;
+  this.clicks =0;
   Imagess.all.push(this);
 }
 
@@ -31,22 +38,16 @@ for( let i = 0; i < imgArray.length; i++ ) {
 }
 
 function render() {
-  let leftIndex = randomNumber(0, imgArray.length - 1);
-  let midIndex  ;
-  let rightIndex ;
+   leftIndex = randomNumber(0, imgArray.length - 1);
+   midIndex  ;
+   rightIndex ;
 
   do {
     rightIndex = randomNumber(0, imgArray.length - 1);
     midIndex = randomNumber(0, imgArray.length - 1);
   } while   ((midIndex  === rightIndex) || (midIndex === leftIndex) || (rightIndex === leftIndex));
 
-
-
  
-
- 
-   
-  
  
 
   leftImage.src = Imagess.all[leftIndex].src;
@@ -58,31 +59,57 @@ function render() {
   Imagess.all[rightIndex].views++;
   Imagess.all[leftIndex].views++;
   Imagess.all[midIndex].views++;
+
+  
+
+
   console.log(Imagess.all);
 }
 
 function eventHandler(e) {
-  // console.log(e.target.id);
-  if((e.target.id === 'rightImage' || e.target.id === 'leftImage' || e.target.id === 'midImage' ) || counter < 25){
-    render();
-    console.log(counter);
-    counter++;
 
+  // console.log(e.target.id);
+  if((e.target.id === 'rightImage' || e.target.id === 'leftImage' || e.target.id === 'midImage' ) && counter < rounds ){
+   
+    if(e.target.id === 'rightImage' ){
+
+      Imagess.all[rightIndex].clicks++;
+    }
+
+    if(e.target.id === 'leftImage' ){
+      Imagess.all[leftIndex].clicks++;
+    }
+
+    if(e.target.id === 'rightImage' ){
+      Imagess.all[midIndex].clicks++;
+    }
+    counter++;
+    render();
+    
+    
+     console.log(counter);
   }
 
 }
 
-imageSection.addEventListener('click', eventHandler);
+ 
 
+function printResult(e) {
+  for (let i = 0; i <Imagess.all.length; i++) {
+     let li = document.createElement('li');
+     itemsList.appendChild(li);
+     li.textContent = `${Imagess.all[i].name} had ${Imagess.all[i].clicks} votes, and was seen ${Imagess.all[i].views} `};
+    
+   
+
+   productView.removeEventListener('click', eventHandler)
+}
+
+imageSection.addEventListener('click', eventHandler);
+productView.addEventListener('click',printResult);
 render();
 
-// console.log(Images.all);
-// leftImage.setAttribute('src', Images.all[0].src)
-// let index = randomNumber(0, imgArray.length - 1);
-// rightImage.src = Images.all[index].src;
-// console.log( leftImage, rightImage );
-
-// Helper function
+ 
 function randomNumber( min, max ) {
   min = Math.ceil( min );
   max = Math.floor( max );
