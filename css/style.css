@@ -79,3 +79,7 @@ footer {
   color: #fff;
   text-transform: capitalize;
 }  
+ul li {
+  padding: 3px;
+  
+}

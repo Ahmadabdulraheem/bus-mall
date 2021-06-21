@@ -22,6 +22,12 @@ let leftIndex  ;
 let midIndex  ;
 let rightIndex ;
 
+
+//  rounds = document.createElement("input");
+// rounds.setAttribute('type', 'text');
+// let parent = document.getElementById("parentDiv");
+// parent.appendChild(rounds);
+
 function Imagess( name, src ) {
   this.name = name;
   this.src = `./img/${src}`;
@@ -102,7 +108,7 @@ function printResult(e) {
     
    
 
-   productView.removeEventListener('click', eventHandler)
+   productView.removeEventListener('click', printResult)
 }
 
 imageSection.addEventListener('click', eventHandler);
