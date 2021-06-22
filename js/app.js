@@ -22,6 +22,8 @@ let leftIndex  ;
 let midIndex  ;
 let rightIndex ;
 
+let prevRepeat = [];
+
 
 //  rounds = document.createElement("input");
 // rounds.setAttribute('type', 'text');
@@ -44,14 +46,25 @@ for( let i = 0; i < imgArray.length; i++ ) {
 }
 
 function render() {
-   leftIndex = randomNumber(0, imgArray.length - 1);
-   midIndex  ;
-   rightIndex ;
+  //  leftIndex = randomNumber(0, imgArray.length - 1);
+  //  midIndex  ;
+  //  rightIndex ;
+ // do {
+   
+  //   rightIndex = randomNumber(0, imgArray.length - 1);
+  //   midIndex = randomNumber(0, imgArray.length - 1);
+  // } while   ((midIndex  === rightIndex) || (midIndex === leftIndex) || (rightIndex === leftIndex));
 
-  do {
-    rightIndex = randomNumber(0, imgArray.length - 1);
-    midIndex = randomNumber(0, imgArray.length - 1);
-  } while   ((midIndex  === rightIndex) || (midIndex === leftIndex) || (rightIndex === leftIndex));
+ 
+
+   do{
+    leftIndex = randomNumber(0, imgArray.length-1);
+    midIndex = randomNumber(0, imgArray.length-1);
+    rightIndex = randomNumber(0, imgArray.length-1);
+    
+   }while( (leftIndex === midIndex) || (leftIndex=== rightIndex) || (midIndex === rightIndex) || prevRepeat.includes(leftIndex) || prevRepeat.includes(midIndex) ||prevRepeat.includes(rightIndex)); 
+prevRepeat = [];
+  prevRepeat.push(leftIndex,midIndex,rightIndex);
 
  
  
@@ -86,7 +99,7 @@ function eventHandler(e) {
       Imagess.all[leftIndex].clicks++;
     }
 
-    if(e.target.id === 'rightImage' ){
+    if(e.target.id === 'midImage' ){
       Imagess.all[midIndex].clicks++;
     }
     counter++;
