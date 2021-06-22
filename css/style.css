@@ -41,11 +41,11 @@ header nav a {
   transition: all 350ms;
   position: relative;
 }
-
+/* 
 header nav a:hover {
   background: #ffd369;
   color: #222;
-}
+} */
 
 header nav a:hover::after {
   background: #fff;
