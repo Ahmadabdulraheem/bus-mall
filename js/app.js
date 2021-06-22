@@ -45,7 +45,7 @@ for( let i = 0; i < imgArray.length; i++ ) {
    new Imagess( imgArray[i].split('.')[0], imgArray[i] );
 }
 
-function render() {
+ function render() {
   //  leftIndex = randomNumber(0, imgArray.length - 1);
   //  midIndex  ;
   //  rightIndex ;
@@ -54,8 +54,6 @@ function render() {
   //   rightIndex = randomNumber(0, imgArray.length - 1);
   //   midIndex = randomNumber(0, imgArray.length - 1);
   // } while   ((midIndex  === rightIndex) || (midIndex === leftIndex) || (rightIndex === leftIndex));
-
- 
 
    do{
     leftIndex = randomNumber(0, imgArray.length-1);
@@ -67,19 +65,16 @@ prevRepeat = [];
   prevRepeat.push(leftIndex,midIndex,rightIndex);
 
  
- 
 
   leftImage.src = Imagess.all[leftIndex].src;
   midImage.src = Imagess.all[midIndex].src;
   rightImage.src = Imagess.all[rightIndex].src;
 
-  
 
   Imagess.all[rightIndex].views++;
   Imagess.all[leftIndex].views++;
   Imagess.all[midIndex].views++;
 
-  
 
 
   console.log(Imagess.all);
@@ -87,7 +82,7 @@ prevRepeat = [];
 
 function eventHandler(e) {
 
-  
+
   if((e.target.id === 'rightImage' || e.target.id === 'leftImage' || e.target.id === 'midImage' ) && counter < rounds ){
    
     if(e.target.id === 'rightImage' ){
@@ -103,15 +98,24 @@ function eventHandler(e) {
       Imagess.all[midIndex].clicks++;
     }
     counter++;
-    render();
     
+    // let storedDAta = new Imagess (name, size, milk, isHot, drinkType);
+    // storedDAta.render();
+     
+  
+    // localStorage.setItem('orders', JSON.stringify(Order.all));
+
+    render();
+    savingData();
     
      console.log(counter);
   }
   else if (counter >= rounds) {
     drawChart();
   }
-
+  // let storedDAta = new Imagess ()
+  // localStorage.setItem('itemsList', JSON.stringify(Imagess.all));
+  // console.log( localStorage.setItem('itemsList', JSON.stringify(Imagess.all)));
 }
 
  
@@ -139,6 +143,19 @@ function randomNumber( min, max ) {
 }
 
 
+// function getData() {
+//   let data = JSON.parse(localStorage.getItem('itemList'));
+//   if(data) {
+//     for(let i = 0; i < data.length ; i++) {
+//      let storedDAta = new Imagess (data[i].name, data[i].src, data[i].views, data[i].clicks, data[i].counter,data[i].midIndex, data[i].rightIndex, data[i].leftIndex );
+//       storedDAta.render();
+
+//     }
+//   }
+//   console.log(Imagess.all);
+// }
+
+// getData();
 
 function drawChart() {
 
@@ -193,3 +210,16 @@ function drawChart() {
   } );
 
 }
+
+function savingData() {
+let dataStored = JSON.stringify (Imagess.all);
+localStorage.setItem('savedimg',dataStored);
+
+}
+
+function restoringData() {
+  Imagess.all = JSON.parse(localStorage.getItem('savedimg'));
+
+}
+
+restoringData();
